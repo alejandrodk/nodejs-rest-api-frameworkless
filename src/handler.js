@@ -1,5 +1,5 @@
 import { parse } from "node:url";
-import { DEFAULT_HEADER } from "./utils/util";
+import { DEFAULT_HEADER } from "./utils/util.js";
 
 const allRoutes = {
   "/heroes:get": (request, response) => {
@@ -21,7 +21,22 @@ function handler(request, response) {
   const key = `${pathname}:${method.toLowerCase()}`;
   const urlHandler = allRoutes[key] || allRoutes.default;
 
-  return urlHandler(request, response);
+  return Promise.resolve(urlHandler(request, response)).catch(
+    handleError(response)
+  );
+}
+
+function handleError(response) {
+  return (error) => {
+    console.log("Something bad has happened**", error.stack);
+    response.writeHead(500, DEFAULT_HEADER);
+    response.write(
+      JSON.stringify({
+        error: "Internal server error",
+      })
+    );
+    return response.end();
+  };
 }
 
 export default handler;
