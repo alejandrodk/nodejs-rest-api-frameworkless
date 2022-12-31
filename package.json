@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-rest-api-frameworkless",
+  "version": "1.0.0",
+  "description": "N-Layers",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alejandrodk/nodejs-rest-api-frameworkless.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alejandrodk/nodejs-rest-api-frameworkless/issues"
+  },
+  "homepage": "https://github.com/alejandrodk/nodejs-rest-api-frameworkless#readme"
+}
