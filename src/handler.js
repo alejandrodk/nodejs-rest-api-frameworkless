@@ -1,11 +1,13 @@
 import { parse } from "node:url";
 import { DEFAULT_HEADER } from "./utils/util.js";
+import heroRoutes from "./routes/heroRoutes.js";
 
-const allRoutes = {
-  "/heroes:get": (request, response) => {
-    response.write("GET");
-    response.end();
-  },
+const _heroRoutes = heroRoutes({
+  heroService: {}, // TODO
+});
+
+const routes = {
+  ..._heroRoutes,
   // Fallback
   default: (request, response) => {
     response.writeHead(404, DEFAULT_HEADER);
@@ -19,7 +21,7 @@ function handler(request, response) {
   const { pathname } = parse(url, true);
 
   const key = `${pathname}:${method.toLowerCase()}`;
-  const urlHandler = allRoutes[key] || allRoutes.default;
+  const urlHandler = routes[key] || routes.default;
 
   return Promise.resolve(urlHandler(request, response)).catch(
     handleError(response)
