@@ -43,6 +43,19 @@ test("Hero Integration Test Suite", async (t) => {
     assert.ok(result.id.length > 30, "it should be a valid uuid");
   });
 
+  await t.test("it should list created heros", async (t) => {
+    const request = await fetch(testServerAddress);
+
+    assert.strictEqual(
+      request.status,
+      200,
+      'it should return "ok" status code'
+    );
+
+    const result = await request.json();
+    assert.ok(result.results.length > 0, "it should return heroes");
+  });
+
   // We use 'bind' to ensure that internal 'this' context for
   // server.close method won't be missed
   await promisify(server.close.bind(server))();
